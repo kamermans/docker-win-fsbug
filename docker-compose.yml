@@ -1,0 +1,16 @@
+data:
+    container_name: data
+    hostname: data
+    image: alpine
+    volumes:
+        - .:/opt
+    command: sleep 30
+
+tester:
+    container_name: tester
+    hostname: tester
+    image: alpine
+    volumes_from:
+        - data
+    working_dir: /opt
+    command: ./build/fsbug-linux --read test.txt --interval 5s
